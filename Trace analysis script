@@ -1,0 +1,12 @@
+
+
+select ObjectName, substring(DatabaseName, 1, 18) as databaseName
+, AVG(cpu) as CPUuse
+, AVG(reads) as avgReads
+, AVG(writes) as avgWrites
+, COUNT(EndTime) as Instances
+, AVG(duration) as avgDuration
+, COUNT(EndTime) * AVG(reads) as CumulativeExpense
+from fn_trace_gettable ('C:\temp\MyTrace.trc', DEFAULT) -- change trace file name
+group by ObjectName,  substring(DatabaseName, 1, 18)
+order by avgReads desc
