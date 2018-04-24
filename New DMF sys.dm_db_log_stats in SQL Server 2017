@@ -1,0 +1,14 @@
+First Set :
+
+SELECT name , total_vlf_count  ,log_truncation_holdup_reason,
+log_backup_time,active_vlf_count,active_log_size_mb
+FROM sys.databases AS s
+CROSS APPLY sys.dm_db_log_stats(s.database_id) 
+
+Second Seet
+
+SELECT name, s.recovery_model, create_date, collation_name, user_access_desc, recovery_model_desc 
+FROM sys.databases AS s
+CROSS APPLY sys.dm_db_log_stats(s.database_id) 
+
+
